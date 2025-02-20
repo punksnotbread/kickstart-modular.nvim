@@ -206,6 +206,19 @@ return {
         },
       }
 
+      vim.g['diagnostics_active'] = true
+      function Toggle_diagnostics()
+        if vim.g.diagnostics_active then
+          vim.g.diagnostics_active = false
+          vim.diagnostic.enable(false)
+        else
+          vim.g.diagnostics_active = true
+          vim.diagnostic.enable(true)
+        end
+      end
+
+      vim.keymap.set('n', '<leader>xd', Toggle_diagnostics, { noremap = true, silent = true, desc = 'Toggle vim diagnostics' })
+
       -- Ensure the servers and tools above are installed
       --
       -- To check the current status of installed tools and/or manually install
