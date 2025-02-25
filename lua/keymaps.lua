@@ -47,7 +47,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 local function run_python_tests()
   local current_file = vim.fn.expand '%'
-  local python_cmd = '.venv/bin/python -m pytest ' .. current_file
+  local python_cmd = 'python -m pytest ' .. current_file
   vim.cmd('!' .. python_cmd)
 end
 
@@ -55,8 +55,11 @@ vim.api.nvim_create_user_command('RunTests', run_python_tests, {})
 
 local function run_python_file()
   local current_file = vim.fn.expand '%'
-  local python_cmd = '.venv/bin/python ' .. current_file
+  local python_cmd = 'python ' .. current_file
   vim.cmd('!' .. python_cmd)
 end
 
-vim.api.nvim_create_user_command('RunFile', run_python_tests, {})
+vim.api.nvim_create_user_command('RunFile', run_python_file, {})
+
+vim.keymap.set('n', '<leader>rt', run_python_tests, { desc = '[R]un file as py[T]est' })
+vim.keymap.set('n', '<leader>rp', run_python_file, { desc = '[R]un file with [P]ython' })

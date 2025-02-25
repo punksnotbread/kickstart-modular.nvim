@@ -27,6 +27,10 @@ return {
       },
       { 'nvim-telescope/telescope-ui-select.nvim' },
 
+      -- json file paths
+      { 'Myzel394/jsonfly.nvim' },
+      { 'phelipetls/jsonpath.nvim' },
+
       -- Useful for getting pretty icons, but requires a Nerd Font.
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
@@ -56,11 +60,13 @@ return {
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
         --
-        -- defaults = {
-        --   mappings = {
-        --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-        --   },
-        -- },
+        defaults = {
+          mappings = {
+            i = {
+              ['<c-enter>'] = 'to_fuzzy_refine',
+            },
+          },
+        },
         -- pickers = {}
         pickers = {
           colorscheme = {
@@ -74,9 +80,21 @@ return {
         },
       }
 
+      -- require('telescope.actions').setup {
+      --   defaults = {
+      --     mappings = {
+      --       i = {
+      --         ['<c-h>'] = 'results_scrolling_left',
+      --         ['<c-l>'] = 'results_scrolling_right',
+      --       },
+      --     },
+      -- }
+
       -- Enable Telescope extensions if they are installed
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
+      pcall(require('telescope').load_extension, 'jsonfly')
+      vim.keymap.set('n', '<leader>j', ':Telescope jsonfly<cr>', { desc = '[J]sonfly' })
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
