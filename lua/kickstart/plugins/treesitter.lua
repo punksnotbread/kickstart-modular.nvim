@@ -14,6 +14,14 @@ return {
         --  If you are experiencing weird indenting issues, add the language to
         --  the list of additional_vim_regex_highlighting and disabled languages for indent.
         additional_vim_regex_highlighting = { 'ruby' },
+
+        is_supported = function()
+          if vim.fn.strwidth(vim.fn.getline '.') > 300 or vim.fn.getfsize(vim.fn.expand '%') > 1024 * 1024 then
+            return false
+          else
+            return true
+          end
+        end,
       },
       indent = { enable = true, disable = { 'ruby' } },
     },
